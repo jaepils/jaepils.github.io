@@ -61,4 +61,4 @@ Single.fromCallable(dao::findPerson)
 fromCallable은 subsribe될때는 아무것도 하지 않으며, 호출(call)이 되는 시점에 onSuccess가 실행되어 personMapper가 호출이 됩니다.
 
 ### 참조
-http://reactivex.io/RxJava/javadoc/io/reactivex/Single.html
+*  http://reactivex.io/RxJava/javadoc/io/reactivex/Single.html

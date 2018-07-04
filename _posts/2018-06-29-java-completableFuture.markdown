@@ -271,5 +271,5 @@ CompletableFuture.anyOf(completableFuture1, completableFuture2, completableFutur
 
 
 ### 참조
-https://www.callicoder.com/java-concurrency-multithreading-basics/
-https://www.callicoder.com/java-8-completablefuture-tutorial/
+* https://www.callicoder.com/java-concurrency-multithreading-basics/
+* https://www.callicoder.com/java-8-completablefuture-tutorial/
