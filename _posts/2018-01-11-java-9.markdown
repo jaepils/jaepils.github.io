@@ -25,7 +25,7 @@ categories: java
 - Improved exception handling
 - ForkJoin Framework
 - G1 Garbage Collector
----
+
 ### JDK 1.8 Spider 2014
 - Lambda expression support in APIs
 - Functional interface and default methods
@@ -37,7 +37,7 @@ categories: java
 - Statically-linked JNI libraries
 - Launch JavaFX applications from jar files
 - Remove the permanent generation from GC
----
+
 ### JDK 1.9 Jigsaw 2017
 - JShell : the interactive Java REPL (Read Evaluate Print Loop)
 - Factory Methods  for Immutable List, Set, Map and  Map.Entry
@@ -53,7 +53,7 @@ categories: java
 - Automatic parallelization
 
 # Java 9
-### JShell
+## JShell
 {% highlight java %}
 G:\>jshell
 |  Welcome to JShell -- Version 9-ea
@@ -66,3 +66,160 @@ a ==> 10
 jshell> System.out.println("a value = " + a )
 a value = 10
 {% endhighlight %}
+
+
+## Factory Methods  for Immutable List, Set, Map
+
+```java
+//Case List
+List immutableList = List.of(); -> Empty List
+List immutableList = List.of("one", "two", "three"); -> Non Empty
+
+//Case Map
+Map immutableMap = Map.of(); -> Empty Map
+Map immutableMap = Map.of(1, "one", 2, "two", 3, "three");
+
+```
+
+# Private methods in Interfaces
+```java
+//Case JDK 1.8
+public interface DBLogging{
+      // default method example
+      default void logWarn(String message){
+         // Step 1: Connect to DataStore
+         // Step 2: Log Warn Message
+         // Step 3: Close the DataStore connection
+      }
+      default void logError(String message){
+         // Step 1: Connect to DataStore
+         // Step 2: Log Error Message
+         // Step 3: Close the DataStore connection
+      }
+}
+```
+```java
+//Case JDK 1.9
+public interface DBLogging {
+  // abstract method example
+  void logInfo(String message);
+
+  default void logWarn(String message) {
+    log(message, "WARN");
+  }
+
+  default void logError(String message) {
+    log(message, "ERROR");
+  }
+
+  default void logFatal(String message) {
+    log(message, "FATAL");
+  }
+
+  private void log(String message, String msgPrefix) {
+	// Step 1: Connect to DataStore
+	// Step 2: Log Message with Prefix and styles etc.
+	// Step 3: Close the DataStore connection
+  }
+}
+```
+## Process API improvements
+Process API를 위해 2개의 인터페이스가 추가됨.
+```md
+java.lang.ProcessHandle
+java.lang.ProcessHandle.Info
+```
+```java
+ProcessHandle currentProcess = ProcessHandle.current();
+System.out.println(currentProcess.getPid());
+```
+
+## Try With Resources Improvement
+Try-with-Resources는 JDK 1.7에 이미 추가가 됨. 하지만, 조금 더 읽기 쉽고, 널체크를 하지 않아도 되도록 개선이 되었습니다.
+```java
+//Case JDK 1.7
+void testARM_Before_Java9() throws IOException{
+ BufferedReader reader1 = new BufferedReader(new FileReader("journaldev.txt"));
+ try (BufferedReader reader2 = reader1) {
+   System.out.println(reader2.readLine());
+ }
+}
+
+//Case JDK 1.9
+void testARM_Java9() throws IOException{
+ BufferedReader reader1 = new BufferedReader(new FileReader("journaldev.txt"));
+ try (reader1) {
+   System.out.println(reader1.readLine());
+ }
+}
+```
+JDK 1.9 이전에는 try에 reader1을 바로 쓰지 못하고, read2로 복사를 해야했습니다.
+try에 있는 Closeable 개체는 close를 호출하지 않아도 됩니다.
+
+## CompletableFuture API Improvement
+### Delay
+```java
+//Delay
+future.completeAsync(supplier, CompletableFuture.delayedExecutor(3, TimeUnit.SECONDS))
+      .thenAccept(result -> System.out.println("accept: " + result));
+```
+### orTimeout
+```java
+// TIMEOUT = 3;
+// doWork() takes 5 seconds to finish
+
+CompletableFuture<String> future =
+	doWork("JavaSampleApproach")
+	.orTimeout(TIMEOUT, TimeUnit.SECONDS)
+	.whenComplete((result, error) -> {
+		if (error == null) {
+			System.out.println("The result is: " + result);
+		} else {
+			System.out.println("Sorry, timeout in " + TIMEOUT + " seconds");
+		}
+	});
+```
+### completeOnTimeout
+```java
+// TIMEOUT = 3;
+// doWork() takes 5 seconds to finish
+
+CompletableFuture<String> future =
+  doWork("JavaSampleApproach")
+  .completeOnTimeout("JavaTechnology", TIMEOUT, TimeUnit.SECONDS)
+  .whenComplete((result, error) -> {
+    if (error == null) {
+	  System.out.println("Case 1");
+	} else {
+	  System.out.println("Case 2");
+	}
+  });
+```
+결과는 The result is: Case 1 입니다.
+
+## Reactive Streams
+자바 언어를 이용해서 매우 쉽게 병행성, 확장성, 비동기 애플리케이션을 구현한 Publish / Subscribe 프레임워크가 추가되었습니다.
+- java.util.concurrent.Flow
+- java.util.concurrent.Flow.Publisher
+- java.util.concurrent.Flow.Subscriber
+- java.util.concurrent.Flow.Processor
+
+
+## Stream API Improvements
+- dropWhile
+- takeWhile
+```java
+Stream.of("a", "b", "c", "", "e")
+	.takeWhile(s -> !String.isEmpty(s));
+	.forEach(System.out::print);
+
+```
+결과는 Console: abc 입니다.
+
+## Module System
+Java SE9 버전 전에는 모노리틱 jar방식에서 탈피할수 있게 되었습니다. 개인적으로 java9에서 가장 기대가 되는 기능입니다.
+- 참조하는 다른 모듈을 명시
+- 외부로 노출하는 패키지 명시
+
+### 참조
+* https://infoscis.github.io/2017/03/24/First-steps-with-java9-and-jigsaw-part-1/
