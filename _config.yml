@@ -10,3 +10,6 @@ gems:
 
 #Others
 markdown: kramdown
+
+# Google Analytics
+google_analytics: UA-121844620-1
