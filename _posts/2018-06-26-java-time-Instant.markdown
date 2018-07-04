@@ -69,7 +69,7 @@ map과 같은 Optional<Integer>로 리턴하기 위해서는 flatMap의 경우 s
 즉 이렇게 코딩을 해야하는 경우 flatMap보다 map이 적합하다고 할 수 있습니다. 하지만 flatMap은 다음과 같은 코딩이 가능합니다.
 
 {% highlight java %}
-String[][] data = new String[][]{{"1", "2"}, {"3", "4"}};
+String[][] data = new String[][]{ {"1", "2"}, {"3", "4"} };
 
 Stream<Stream<String>> map = Arrays.stream(data).map(x -> Arrays.stream(x));
 map.forEach(s -> s.forEach(System.out::println));
