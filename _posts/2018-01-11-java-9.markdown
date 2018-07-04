@@ -54,7 +54,7 @@ categories: java
 
 # Java 9
 ## JShell
-{% highlight java %}
+```java
 G:\>jshell
 |  Welcome to JShell -- Version 9-ea
 |  For an introduction type: /help intro
@@ -65,8 +65,7 @@ a ==> 10
 
 jshell> System.out.println("a value = " + a )
 a value = 10
-{% endhighlight %}
-
+```
 
 ## Factory Methods  for Immutable List, Set, Map
 
@@ -208,6 +207,7 @@ CompletableFuture<String> future =
 ## Stream API Improvements
 - dropWhile
 - takeWhile
+
 ```java
 Stream.of("a", "b", "c", "", "e")
 	.takeWhile(s -> !String.isEmpty(s));
