@@ -1,8 +1,8 @@
 # Setup
-name:         Project or Site name (Architect Theme)
+name:         Java Developer
 tagline:      A responsive theme for your project on GitHub Pages
 baseurl:      ""
-locale:       "en"
+locale:       "ko"
 
 # Gems
 gems:
