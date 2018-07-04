@@ -119,5 +119,4 @@ class Square extends Shape {
 
 ### 참조
 * https://ko.wikipedia.org/wiki/%EB%A6%AC%EC%8A%A4%EC%BD%94%ED%94%84_%EC%B9%98%ED%99%98_%EC%9B%90%EC%B9%99
-
 * https://dzone.com/articles/the-liskov-substitution-principle-with-examples

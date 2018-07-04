@@ -1,0 +1,68 @@
+---
+layout: post
+title:  "Java 9 New Features"
+date:   2018-01-11 15:40:56
+categories: java
+---
+# Java history
+### JDK 1.6 Mustang 2006
+- Scripting Language Support
+- JDBC 4.0 Support
+- Java Compiler API
+- Pluggagble Annotations
+- Native PKI, Java GSS, Kerberos and LDAP support
+- Integerated Web Services
+- Light weight
+
+### JDK 1.7 Dolphin 2011
+- JVM support for dynamic languages
+- Compressed 64-bit pointers
+- Strings in switch
+- Automatic resource management in try-statement
+- The diamond operator
+- Simplified varargs method declaration
+- Binary integer literals
+- Improved exception handling
+- ForkJoin Framework
+- G1 Garbage Collector
+---
+### JDK 1.8 Spider 2014
+- Lambda expression support in APIs
+- Functional interface and default methods
+- Optionals
+- Annotation on Java Types
+- Unsigned Integer Arithmetic
+- Repeating annotations
+- New Date and Time API
+- Statically-linked JNI libraries
+- Launch JavaFX applications from jar files
+- Remove the permanent generation from GC
+---
+### JDK 1.9 Jigsaw 2017
+- JShell : the interactive Java REPL (Read Evaluate Print Loop)
+- Factory Methods  for Immutable List, Set, Map and  Map.Entry
+- Private methods in interface
+- Try with Resources Improvement
+- CompletableFuture API Improvement
+- Reactive Streams
+- Support for multi-gigabyte heaps
+- Better native code integration
+- Self-tuning JVM
+- Java Module System
+- Money and Currency API
+- Automatic parallelization
+
+# Java 9
+### JShell
+{% highlight java %}
+G:\>jshell
+|  Welcome to JShell -- Version 9-ea
+|  For an introduction type: /help intro
+
+
+jshell> int a = 10
+a ==> 10
+
+jshell> System.out.println("a value = " + a )
+a value = 10
+{% endhighlight %}
