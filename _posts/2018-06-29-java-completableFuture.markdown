@@ -15,9 +15,9 @@ categories: java
 runAsync 메소드는 supplyAsync와 달리 파라미터가 Runnable 이기 때문에 반환값이 없습니다.
 {% highlight java %}
 static CompletableFuture <Void> runAsync(Runnable runnable)
-CompletableFuture 에 타입이 Void로 생성이 되고 있습니다.
 {% endhighlight %}
-마찬가지로 예제를 보면 다음과 같습니다.
+CompletableFuture 에 타입이 Void로 생성이 되고 있습니다.
+예제를 보면 다음과 같습니다.
 
 {% highlight java %}
 CompletableFuture.runAsync(() -> {
