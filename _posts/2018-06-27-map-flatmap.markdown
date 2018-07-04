@@ -36,7 +36,6 @@ Instant.now().toEpochMilli을 수행하면 joda와 같은 결과가 나옵니다
 이 클래스를 사용하면 직관적으로 시간을 구할 수 있습니다.
 
 
-
 ### Instant Calculations
 현재 기준으로 시간을 더하거나 빼는 방법은 다음과 같습니다.
 
@@ -67,7 +66,6 @@ System.out.println(calendar.getTime());
 {% endhighlight %}
 
 위의 코드와 비교를 해보면 직관적인지 않은 불친절한 코드로 보입니다.
-
 
 
 ### Compare
