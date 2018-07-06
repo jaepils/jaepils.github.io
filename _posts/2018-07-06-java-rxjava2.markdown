@@ -2,7 +2,7 @@
 layout: post
 title:  "RxJava2"
 date:   2018-07-06 15:40:56
-categories: java, rxjava2
+categories: java rxjava2
 ---
 ## RxJava
 > RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences.

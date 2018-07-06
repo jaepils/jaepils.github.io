@@ -2,7 +2,7 @@
 layout: post
 title:  "Single"
 date:   2018-06-14 15:40:56
-categories: java, RxJava2
+categories: java RxJava2
 ---
 ### 정의
 Single 클래스는 하나의 값만을 응답하는 Reactive Pattern의 구현체입니다.
