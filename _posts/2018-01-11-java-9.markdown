@@ -123,7 +123,7 @@ public interface DBLogging {
 }
 ```
 ## Process API improvements
-Process API를 위해 2개의 인터페이스가 추가됨.
+Process API를 위해 2개의 인터페이스가 추가되었습니다.
 ```md
 java.lang.ProcessHandle
 java.lang.ProcessHandle.Info
@@ -134,7 +134,7 @@ System.out.println(currentProcess.getPid());
 ```
 
 ## Try With Resources Improvement
-Try-with-Resources는 JDK 1.7에 이미 추가가 됨. 하지만, 조금 더 읽기 쉽고, 널체크를 하지 않아도 되도록 개선이 되었습니다.
+Try-with-Resources는 JDK 1.7에 이미 추가가 되었습니다. 기존대비, 조금 더 읽기 쉽고, 널체크를 하지 않아도 되도록 개선이 되었습니다.
 ```java
 //Case JDK 1.7
 void testARM_Before_Java9() throws IOException{
