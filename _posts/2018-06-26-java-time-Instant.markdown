@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Map과 Flatmap의 차이 :: JD"
+title:  "Map과 Flatmap의 차이"
 date:   2018-06-27 15:40:56
 categories: java
 ---

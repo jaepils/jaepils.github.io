@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "java.util.function :: JD"
+title:  "java.util.function"
 date:   2018-07-02 15:40:56
 categories: java
 ---

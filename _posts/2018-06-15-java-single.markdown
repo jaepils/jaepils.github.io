@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  " io.reactivex.Single :: JD"
+title:  " io.reactivex.Single"
 date:   2018-06-14 15:40:56
 categories: java rxJava2
 ---

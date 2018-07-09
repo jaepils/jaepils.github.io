@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "RxJava2 beginning :: JD"
+title:  "RxJava2 beginning"
 date:   2018-07-06 15:40:56
 categories: java rxJava2
 ---

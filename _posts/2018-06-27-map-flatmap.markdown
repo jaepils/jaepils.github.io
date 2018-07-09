@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "java.time.Instant :: JD"
+title:  "java.time.Instant"
 date:   2018-06-26 15:40:56
 categories: java
 ---

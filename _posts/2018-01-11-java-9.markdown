@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Java 9 New Features :: JD"
+title:  "Java 9 New Features"
 date:   2018-01-11 15:40:56
 categories: java
 ---
