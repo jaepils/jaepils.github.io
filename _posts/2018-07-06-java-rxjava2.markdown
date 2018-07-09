@@ -2,7 +2,7 @@
 layout: post
 title:  "RxJava2"
 date:   2018-07-06 15:40:56
-categories: java rxjava2
+categories: java rxJava2
 ---
 ## RxJava
 > RxJava is a Java VM implementation of Reactive Extensions: a library for composing asynchronous and event-based programs by using observable sequences.
@@ -90,6 +90,8 @@ Observable.create((ObservableOnSubscribe<String>)
 
 ## Observable
 ### Observable.just
+just는 가장 간단하게 Observable을 생성하는 방법입니다. 입력받은 값을 다시 방출하는 Observable이 리턴합니다.
+just는 null을 입력을 받으면 null을 방출하기 때문에 주의가 필요합니다.
 ```java
 Observable.just("Hello", "World").subscribe(System.out::println);
 
@@ -100,91 +102,128 @@ Observable.create((ObservableOnSubscribe<String>)
           subscriber.onComplete();})
         .subscribe(System.out::println);
 ```
-
+just는 한줄로 정의가 가능하지만, 실제 내부에서는 onNext가 2번 호출이 되고, onComplete가 호출이 되면서 종료가 됩니다.
 ### Observable.array
-
+List를 받아서 List의 element들을 순서대로 방출하는 Observable을 생성을 합니다.
+fromArray는 array를 파라미터로 받기 때문에 아래 코드는 생각대로 동작 하지 않습니다.
 ```java
-List<String> words = Arrays.asList(        
-      "the",        
-      "quick",        
-      "brown",        
-      "fox",        
-      "jumped",        
-      "over",        
-      "the",        
-      "lazy",        
-      "dog");
+List<String> words = Arrays.asList(
+            "the",
+            "quick",
+            "brown",
+            "fox",
+            "jumped",
+            "over",
+            "the",
+            "lazy",
+            "dog");
 
-Observable.just(words).subscribe(System.out::println);
+Observable.fromArray(words).subscribe(System.out::println);
 ```
+위의 코드 수행결과는 [the, quick, brown, fox, jumped, over, the, lazy, dog]가 나오게 됩니다.
+만약 위의 코드처럼 list를 넘겨주고 싶다면 fromIterable을 사용해야 합니다. fromIterable은 Iterable개체를 순서대로 방출을 하는 Observable을 반환을 합니다.
 
 ### Observable.fromIterable
 ```java
-List<String> words = Arrays.asList(        
-      "the",        
-      "quick",        
-      "brown",        
-      "fox",        
-      "jumped",        
-      "over",        
-      "the",        
-      "lazy",        
-      "dog");
+List<String> words = Arrays.asList(
+            "the",
+            "quick",
+            "brown",
+            "fox",
+            "jumped",
+            "over",
+            "the",
+            "lazy",
+            "dog");
 
 Observable.fromIterable(words).subscribe(System.out::println);
 ```
+위의 코드는 list의 element가 순서대로 방출이 되어 콘솔에 찍히게 됩니다.
 
 ### Observable.range
+특정 범위의 숫자값을 순서대로 방출하는 Observable을 반환을 합니다.
 ```java
 Observable.range(1, 5).subscribe(System.out::println);
 ```
 
 ### Observable.map
+map은 하나의 입력을 다른(같거나) 타입으로 변환을 하는 기능입니다.
+Observable.map의 파라미터는 io.reactivex.functions.Function입니다.
+Optional에서 사용하는 Function과는 패키지가 다르지만, 동작은 같습니다.
 ```java
 Function<String, String> getCount = ball -> ball + " 개";
-String[] balls = {"1", "2", "3", "4", "5"};
+String[] balls = {"1", "2", "3", "4", "5"};
 Observable<String> source = Observable.fromArray(balls).map(getCount);
-source.subscribe(System.out::println);
+source.subscribe(System.out::println);
 ```
-
+위의 코드는 balls의 순서대로 방출하는 Observable을 fromArray로 생성을 하고, 방출된 결과는 map으로 보내서 Function이, 입력으로 보내고 결과는 "개"라는 글자가 붙어서 반환이 됩니다.
+따라서 결과는 다음과 같습니다.
+```java
+1 개
+2 개
+3 개
+4 개
+5 개
+```
 ### Observable.flatMap
+flatMap은 map과 다르게 다른 타입을 반환하는게 아니라 같은 방출되는 타입이 다른 Observable 개체를 반환을 합니다.
+따라서 방출된 결과는 Observable이기 때문에 다시 subscribe을 해야합니다.
+
 ```java
 List<String> sentences = new ArrayList<>();
 sentences.add("A B");
 sentences.add("C D E F");
 
-Observable.fromIterable(sentences).blockingSubscribe(System.out::println);
-
-Observable.fromIterable(sentences)
-          .flatMap(s -> Observable.fromArray(s.split(" ")))      
-          .blockingSubscribe(System.out::println);
+Observable.fromIterable(sentences)
+  .flatMap(s -> Observable.fromArray(s.split(" ")))
+  .blockingSubscribe(System.out::println);
 ```
+위의 코드는 fromIterable을 하게 되면 "A B"와 "C D E F" 2개의 결과를 순서대로 Observable을 flatMap의 파라미터로 넘겨주고 Observable.fromArray가 "A B"를 "A", "B"로 다시 방출되는 Observable개체를 반환하고 그 결과를 출력을 하게 됩니다.
+이 코드에서는 subscribe를 한번만 했고, 두개의 Observable이 모두 수행이 되는 것을 알 수 있습니다.
 
 ### Observable.sort
+sort는 결과를 List를 받아서 정렬 한 결과를 다시 Observable에 담아 반환하여 정렬된 값이 방출됩니다.
 ```java
 List<String> sentences = new ArrayList<>();
 sentences.add("A C");
 sentences.add("D B F E");
 
-Flowable.fromIterable(sentences)
-        .flatMap(s -> Flowable.fromArray(s.split(" ")))
-        .sorted()
-        .blockingSubscribe(System.out::println);
+Observable.fromIterable(sentences)
+    .flatMap(s -> Observable.fromArray(s.split(" ")))
+    .sorted()
+    .blockingSubscribe(System.out::println);
 ```
 
 ### Observable.zip
+두개 이상의 Observable를 수행하여 그 결과를 combine한 결과를 반환하는 Observable을 다시 반환하는 기능입니다.
+zip은 코드만 보면 마치 병렬로 처리 되는것으로 생각하기 쉬운데 기본적으로는 모두 같은 쓰레드에서 동작합니다.
 ```java
 List<String> letters = Arrays.asList("A", "B", "C", "D", "E");
 List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
 
-Observable.zip(
-      Observable.fromIterable(letters),
-      Observable.fromIterable(numbers),  
-      (string, index) -> index + "-" + string
+Observable.zip(
+    Observable.fromIterable(letters),
+    Observable.fromIterable(numbers),
+    (string, index) -> index + "-" + string
 ).subscribe(System.out::println);
 ```
+Observable은 2개가 있고, 결과는 서로 합쳐서 하나의 문자를 반환합니다.
+결과는 아래와 같습니다.
+```java
+1-A
+2-B
+3-C
+4-D
+5-E
+```
+만약 letters가 "A", "B" 2개가 있다면 결과가 어떻게 나올까요?
+이런 경우 1-A, 2-B만 나오게 됩니다.
+
+반대로 numbers가 1, 2만 있고, letters는 A부터 E까지 있는 경우는 결과가 어떻게 나올까요?
+마찬가지로 1-A, 2-B만 나오게 됩니다.
 
 ### Observable.zipWith
+위와 동일한 결과가 나옵니다.
 ```java
 List<String> letters = Arrays.asList("A", "B", "C", "D", "E");
 List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
