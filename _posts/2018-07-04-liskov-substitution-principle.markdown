@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "리스코프 치환 원칙"
+title:  "리스코프 치환 원칙 :: JD"
 date:   2018-07-04 15:40:56
 categories: pattern
 ---

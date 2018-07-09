@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "CompletableFuture"
+title:  "CompletableFuture :: JD"
 date:   2018-06-29 15:40:56
 categories: java
 ---
