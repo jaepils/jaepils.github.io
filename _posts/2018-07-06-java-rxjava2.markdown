@@ -30,8 +30,8 @@ Observable이 가지고 있는 각각의 Subscriber마다 Observable은 Subscrib
 ### Hello world
 ```java
 Observable.create((ObservableOnSubscribe<String>)
-	  subscriber -> {	    
-        subscriber.onNext("Hello world");	})
+	  subscriber -> {	    
+        subscriber.onNext("Hello world");	})
    .subscribe(System.out::println);
 ```
 위의 코드는 Observable을 하나 만들고, Observer가 subscribe 하면 Hello world를 발행하는 예제입니다. 여기서 Observer는 아래 클래스를 람다로 축약을 해서 정의를 하였습니다.
@@ -52,10 +52,10 @@ Subscriber<String> simpleSubscriber = new Subscriber<String>() {
 
 ```java
 Observable.create((ObservableOnSubscribe<String>)
-    subscriber -> {    
-        subscriber.onNext("1");    
-        subscriber.onNext("2");    
-        subscriber.onComplete();})
+    subscriber -> {    
+        subscriber.onNext("1");   
+        subscriber.onNext("2");    
+        subscriber.onComplete();})
     .subscribe(System.out::println);
 ```
 위의 코드는 1과 2과 순서대로 방출이 되고 Observable이 subscriber에게 이제 끝났다고 알려주고 전체 플로우가 끝이 나게 됩니다. Subscriber에서는 onComplete에서 아무런 행동도 취하지 않았기 때문에 콘솔에 1과 2가 찍히게 됩니다.
@@ -93,13 +93,13 @@ Observable.create((ObservableOnSubscribe<String>)
 just는 가장 간단하게 Observable을 생성하는 방법입니다. 입력받은 값을 다시 방출하는 Observable이 리턴합니다.
 just는 null을 입력을 받으면 null을 방출하기 때문에 주의가 필요합니다.
 ```java
-Observable.just("Hello", "World").subscribe(System.out::println);
+Observable.just("Hello", "World").subscribe(System.out::println);
 
 Observable.create((ObservableOnSubscribe<String>)
-        subscriber -> {        
-          subscriber.onNext("Hello");
-          subscriber.onNext("World");
-          subscriber.onComplete();})
+        subscriber -> {        
+          subscriber.onNext("Hello");
+          subscriber.onNext("World");
+          subscriber.onComplete();})
         .subscribe(System.out::println);
 ```
 just는 한줄로 정의가 가능하지만, 실제 내부에서는 onNext가 2번 호출이 되고, onComplete가 호출이 되면서 종료가 됩니다.
@@ -227,8 +227,8 @@ Observable은 2개가 있고, 결과는 서로 합쳐서 하나의 문자를 반
 ```java
 List<String> letters = Arrays.asList("A", "B", "C", "D", "E");
 List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
-Observable<String> observable = Observable.fromIterable(letters)
-                        .zipWith(Observable.fromIterable(numbers),
+Observable<String> observable = Observable.fromIterable(letters)
+                        .zipWith(Observable.fromIterable(numbers),
                              (string, index) -> index + "-" + string);
 
 observable.subscribe(System.out::println);
