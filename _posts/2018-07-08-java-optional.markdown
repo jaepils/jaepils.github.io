@@ -145,9 +145,117 @@ Optional.of(computer).flatMap(Computer::getSoundcard).map(Soundcard::name)
 Computer의 속성을 soundcard를 가지고 있지만, Optional인 경우 두번 get을 해야하지만,
 flatMap을 사용하게 되면 리턴이 Optional이기 때문에 Optional<Soundcard>가 반환이 되고, 여기서는 Optional개체가 아닌 실제 값이 필요함으로 map을 사용하여 내부에 값을 꺼내게 되었습니다.
 
+## Optional.orElse
+값이 없는 경우는 피하기 어렵기 때문에 해당 값이 없는 경우 기본값으로 사용하는 방법을 알아보겠습니다.
+
+```java
+public T orElse(T other) {
+    return value != null ? value : other;
+}
+```
+orElse의 경우 내부에서 null 체크를 하고 null인 경우 other를 리턴하는 간단한 메소드입니다.
+orElse의 리턴은 optional이 아닌 실제 값이기 때문에 get과 같은 역할을 수행합니다.
+```java
+Optional stringOptional1 = Optional.of("test");
+System.out.println(stringOptional1.orElse("test2"));
+```
+위의 코드처럼 orElse를 사용을 하면 되는데, 따로 get을 안해도 됩니다. 위 코드 결과는 당연히 test가 됩니다. test 문자가 null이 아니기 때문입니다.
+
+## Optional.orElseGet
+orElse와 유사하지만, Supplier를 사용하여 조금 더 복잡한 동작을 한 결과를 리턴하는 orElseGet을 알아보도록 하겠습니다.
+```java
+public T orElseGet(Supplier<? extends T> other) {
+    return value != null ? value : other.get();
+}
+```
+Optional이 가진 값이 null 인경우 Supplier의 get을 반환을 합니다.
+예제를 보도록 하겠습니다.
+```java
+Optional stringOptional1 = Optional.ofNullable(null);
+System.out.println(stringOptional1.orElseGet(() -> {
+    StringBuilder sb = new StringBuilder();
+    sb.append("test2");
+
+    return sb.toString();
+}));
+```
+물론 test2를 반환을 해도 되지만, StringBuilder를 사용해서 문자를 생성해서 반환을 했습니다.
+primitive type의 경우 그냥 반환을 해도 되지만, Object를 반환하는 경우 초기값등의 세팅이 필요한 경우 사용을 하면될거 같습니다.
+
+## Optional.orElseThrow
+값이 없는 경우 에러를 발생하는 예제입니다.
+
+```java
+Optional stringOptional1 = Optional.ofNullable(null);
+stringOptional1.orElseThrow(() -> new RuntimeException());
+stringOptional1.orElseThrow(RuntimeException::new);
+```
+
+## Optional.isPresent
+기존 null 체크 로직은 대부분 다음처럼 작성을 합니다.
+```java
+@Test
+public String test () {
+
+    Computer computer = new Computer();
+
+    if(computer.getSoundcard() != null) {
+        return computer.getSoundcard().getName();
+    }
+    return "NONE";
+
+}
+
+@Data
+public class Computer {
+    private Soundcard soundcard;
+}
+
+@Data
+public class Soundcard {
+    private String name;
+}
+```
+위의 코드는 설명을 위한 코드이기는 하지만, NPE 없이 정상적으로 동작을 합니다. 이미 null을 체크를 했기 때문입니다.  이 코드를 Optional로 전환을 하면 다음처럼 할 수 있습니다.
+
+```java
+@Test
+public String test () throws Throwable {
+
+    Computer computer = new Computer();
+
+    if(computer.getSoundcard().isPresent()) {
+        return computer.getSoundcard().get().getName();
+    }
+    return "NONE";
+
+}
+
+@Data
+public class Computer {
+    private Optional<Soundcard> soundcard;
+}
+
+@Data
+public class Soundcard {
+    private String name;
+}
+```
+Soundcard를 Optional로 전환을 하였고, 제공해주는 null 체크를 하는 isPresent를 사용하여 null이 아닌 경우에만 get을 호출하였습니다.
+물론 이렇게 코딩하는 방식은 java8에서 추구하려는 방향과 맞지 않습니다. 따라서 다음처럼 작성을 할 수 있을거 같습니다.
+
+```java
+Computer computer = new Computer();
+
+Optional.of(computer).flatMap(Computer::getSoundcard)
+                     .map(Soundcard::getName)
+                     .orElse("NONE");
+```
+
 
 ## 결론
-
+java9에서는 ifPresentOrElse 와 같이 조금 더 편리한 방법도 추가가 되었습니다.
+isPresent가 필요한 경우에는 잘못된 코드를 작성하고 있을 수 있으니 다른 대안을 찾아보는게 좋을거 같습니다.
 
 ## 참조
 * http://www.oracle.com/technetwork/articles/java/java8-optional-2175753.html
