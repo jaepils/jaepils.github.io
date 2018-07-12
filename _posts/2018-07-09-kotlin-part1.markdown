@@ -18,11 +18,11 @@ Kotlin은 Java, Scala, Groovy등에 영향을 받았습니다. 하지만, Java�
 
 ## Advantages
 * Easy Language
-Kotlin은 Functional language이고, 배우기가 매우 쉽습니다. 문법은 Java와 유사해서 기억하기가 쉽습니다. Kotlin은 표현력(expressive)이 좋아서 조금 더 이해하기 쉽고, 읽기 편하게 작성이 가능합니다.
+ - Kotlin은 Functional language이고, 배우기가 매우 쉽습니다. 문법은 Java와 유사해서 기억하기가 쉽습니다. Kotlin은 표현력(expressive)이 좋아서 조금 더 이해하기 쉽고, 읽기 편하게 작성이 가능합니다.
 * Runtime and Performance
-성능이 좋습니다.
+ - 성능이 좋습니다.
 * Null 안정성
-Optional과 유사한 기능으로, ?만 있으면 null여부를 체크하지 않아도 됩니다. 뒤에서 코드로 보도록 하겠습니다.
+ - Optional과 유사한 기능으로, ?만 있으면 null여부를 체크하지 않아도 됩니다. 뒤에서 코드로 보도록 하겠습니다.
 
 ## Environment Setup
 IntelliJ기준으로 설명을 하겠습니다. 우선 엔터프라이즈 버전에서는 kotlin plugin이 이미 설치가 되어있어 설치과정은 빼도록 하겠습니다.
