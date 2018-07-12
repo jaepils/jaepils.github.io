@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Kotlin Part1"
+title:  "Kotlin Part#1"
 date:   2018-07-08 15:40:56
 categories: kotlin
 ---
@@ -17,11 +17,11 @@ Kotlin은 Java, Scala, Groovy등에 영향을 받았습니다. 하지만, Java�
 * Kotlin v1.2 was released on November 28, 2017
 
 ## Advantages
-##### Easy Language
+* Easy Language
 Kotlin은 Functional language이고, 배우기가 매우 쉽습니다. 문법은 Java와 유사해서 기억하기가 쉽습니다. Kotlin은 표현력(expressive)이 좋아서 조금 더 이해하기 쉽고, 읽기 편하게 작성이 가능합니다.
-##### Runtime and Performance
+* Runtime and Performance
 성능이 좋습니다.
-##### Null 안정성
+* Null 안정성
 Optional과 유사한 기능으로, ?만 있으면 null여부를 체크하지 않아도 됩니다. 뒤에서 코드로 보도록 하겠습니다.
 
 ## Environment Setup
@@ -62,6 +62,7 @@ public final class HelloworldKt {
 ```
 기본적인 자바 코드로 생성한 것과 거의 유사한 코드임을 알 수 있습니다.
 
+다음에는 타입과 기본 문법에 대해 알아보도록 하겠습니다.
 
 ## 참조
 * https://www.tutorialspoint.com/kotlin
