@@ -13,7 +13,7 @@ Java8에서는 Streams를 사용하기 위해서는 List를 .streams()로 변환
 
 ```java
 List<String> values = Arrays.asList("1", "2", "3");
-        values.forEach(v -> System.out.println(v));
+values.forEach(v -> System.out.println(v));
 ```        
 문자 List를 루프를 돌면서 람다 표현식에 의해서 임의의 글자 위의 예제에서는 v로 정의되는 글자를 출력을 하는 예제입니다.
 
@@ -48,10 +48,11 @@ fun main(args: Array<String>) {
 ```
 kotlin의 경우 list에서 바로 map을 호출이 가능하며 sum과 같은 기능도 간단히 사용이 가능합니다.
 
-### chain
-데이터 소스의 요소에 대해 연산을 순차적으로 수행하고 결과를 집계하려면 소스, 중간 연산 및 터미널 연산의 세 부분이 필요합니다.
+### chaining of Streams
+데이터 소스의 요소에 대해 연산을 순차적으로 수행하고 결과를 집계하려면 소스, 중간 연산 및 터미널 연산의 세 부분으로 구성이 되어 순차적으로 수행이 됩니다.
 
 문자 List를 받아서 다른 문자로 변환후, 그 중 1이 들어간 문자열을 삭제한 결과를 다시 문자 list로 변환하는 조금은 복잡한 예제를 보도록 하겠습니다.
+이 예제의 중간 연산자는 map, filter이고, 터미털 연산자는 collect입니다.
 
 ```java
 List<String> input = Arrays.asList("1", "2", "3");
@@ -121,7 +122,52 @@ System.out.println(map);
 
 ```
 
-이외에도 rxJava처럼 zip과 같은 부가적인 기능이 있어서 kotlin이 java8보다 낫다고 할수 있을거 같습니다.
+### zip
+Streams에서는 두개의 streams을 하나로 묶는 것은 guava없이는 안됩니다.
+
+```java
+List<Integer>  numbers = Arrays.asList(1, 2, 3, 4);
+List<String>  words = Arrays.asList("one", "two", "three");
+
+int shortestLength = Math.min(numbers.size(),words.size());
+List<String> result = new ArrayList<>();
+for(int i=0 ; i < shortestLength ; i++) {
+    result.add(numbers.get(i) + words.get(i));
+}
+
+System.out.println(result);
+```
+다른 오픈소스를 이용하면 좀더 쉬운 방법은 있겠지만, 제공되는 기능만으로는 쉽게 표현을 할 수 없습니다.
+
+kotlin 의 경우는 이런 경우 쉽게 구현이 가능합니다.
+
+```java
+fun main(args: Array<String>) {
+    val numbers = listOf(1, 2, 3, 4)
+    val words = listOf("one", "two", "three")
+
+    var result = numbers.zip(words)
+
+    print(result)
+}
+
+--> [(1, one), (2, two), (3, three)]
+```
+
+디컴파일 코드를 보면 다음과 같습니다.
+```java
+kotlin.jvm.internal.Intrinsics.checkParameterIsNotNull(args, "args");
+java.util.List numbers = CollectionsKt.listOf(new Integer[] { Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4) });
+java.util.List words = CollectionsKt.listOf(new String[] { "one", "two", "three" });
+
+java.util.List result = CollectionsKt.zip((Iterable)numbers, (Iterable)words);
+
+System.out.print(result);
+```
+
+## 결론
+Streams는 Java8에 비해 kotlin이 비교 우위에 있는거 같습니다.
 
 ## 참조
 * https://www.tutorialspoint.com/kotlin
+* https://blog.plan99.net/kotlin-fp-3bf63a17d64a
