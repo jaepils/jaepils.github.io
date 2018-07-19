@@ -12,6 +12,7 @@ categories: kotlin
  - Polymorphism
  - Abstraction
  - Interface
+ - Data
 
 ### Class
 Class를 정의하는 것을 보도록 하겠습니다. 기본적인 사항은 Java와 동일합니다.
@@ -218,7 +219,7 @@ class Person {
 ```
 constructor를 명시해서 생성자를 만들고, java처럼 직접 매핑을 하면 됩니다.
 
-#### function
+#### Function
 함수 정의 방법을 알아 보겠습니다. 함수는 리턴을 마지막에 명시하는 것이 조금 다른거 같습니다.
 ```java
 fun main(args: Array<String>) {
@@ -265,6 +266,33 @@ class Laptop: Computer() {
 우선 상속이 가능하게 하려면 class 앞에 open이라고 명시를 해야합니다. 이렇게 하지 않으면 디컴파일된 java 코드에서보면 final로 클래스가 생성이 되어 상속이 불가능합니다.
 
 Computer라는 클래스에 명시된 메소드 역시 기본적으로는 private이고 override가 불가능합니다. 자식 클래스에서 override하게 하려면 메소드 역시 open을 명시를 해야 합니다.
+
+### Abstraction
+abstract 클래스에 대해 알아보겠습니다. abstract는 당연하지만, 초기화를 하지 못하고, 상속을 할수 있습니다.
+java에서는 당연하겠지만, kotlin의 경우 기본적으로 class는 final이기 때문에 open 을 명시하지 않으면 상속이 되지 않습니다. 다만 abstract 클래스의 경우는 open을 명시하지 않아도 상속이 가능합니다.
+이외에는 클래스와 모두 동일합니다.
+
+```java
+fun main(args: Array<String>) {
+
+    var student = Student("홍길동", 15)
+
+    student.print()
+}
+
+abstract class Person {
+    open fun print() {
+        println("Person")
+    }
+}
+
+
+class Student(val name: String, var age: Int) : Person() {
+    override fun print() {
+        println("Name = $name")
+    }
+}
+```
 
 
 ### Interface
@@ -334,6 +362,39 @@ public class Computer implements printable
 ```
 디컴파일된 코드를 보면 printable은 abstract 메소드 2개를 가지고 있습니다. default 메소드는 보이지 않습니다.
 Computer 클래스를 보면 메소드 2개를 implements하였고, kotlin에서 인터페이스 정의할때 구현 로직이 Computer 클래스가 가지고 있음을 알 수 있습니다.
+
+### Data
+Data class는 생성자로 기본적으로 클래스와 유사하지만, toString, equals등이 이미 정의가 되어있 다른 기능을 제공하지 않는 클래스라고 kotlin에서 정의하고 있습니다.
+```java
+fun main(args: Array<String>) {
+
+    val person = Person("홍길동", 15)
+
+    println("Name = ${person.name}")
+
+    person.age = 20
+    println("age = ${person.age}")
+
+    println("ToString = " + person.toString())
+    person.print()
+}
+
+data class Person(val name: String, var age: Int) {
+    fun print() {
+        println("print 1 ")
+    }
+}
+
+--> Name = 홍길동
+--> age = 20
+--> ToString = Person(name=홍길동, age=20)
+--> print 1
+```
+우선 Person 클래스는 data로 정의를 하면, 하나 이상의 primary constructor를 정의를 해야합니다.
+kotlin에서 class와 마찬가지로 String 은 기본적으로 final이고, Int는 수정이 가능합니다.
+내부 함수 역시 동일하게 가질 수 있습니다. 차이점은 abstract, open, inner 클래스가 아니어야 합니다.
+기본적으로 equals, toString, copy등을 제공을 하고 있습니다.
+
 
 ## 결론
 kotlin도 java와 비슷한 것 같지만, attribute가 기본적으로 immutable인점, 클래스는 final로 생성이 되고, 메소드 역시 private하기 때문에 java에 비해 제한이 많이 하려한거 같습니다.
