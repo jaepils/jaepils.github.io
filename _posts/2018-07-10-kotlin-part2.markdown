@@ -7,6 +7,11 @@ categories: kotlin
 ## Basic Types
 Kotlin에서 사용 가능한 데이터 타입을 알아보록 하겠습니다.
 
+### Var vs Val
+kotlin에서는 변수 정의시 2가지 타입이 있습니다.
+
+- var : 여러번 값을 할당하여 쓰는 변수의 경우에 사용됩니다.
+- val : 한번 값이 정해지면 바뀌지 않는 상수에 해당합니다.
 
 ### Int
 Integer는 최소 -2147483648에 최대 2147483647까지 이고, 동작 방식은 Primitive int 보다는 java.lang.Integer와 유사합니다.
@@ -25,7 +30,7 @@ fun main(args: Array<String>) {
 ```
 숫자 타입을 println에 넣어도 정상적으로 출력이 됩니다. Int를 명시하지 않아도 Integer임을 알고 있어서 intValue와 intValue2는 모두 같은 동작을 합니다.
 
-다음처럼 이미 정의된 변수에 다른 값을 넣는 것은 오류가 발생합니다.
+다음처럼 이미 정의된 상수에 다른 값을 넣는 것은 오류가 발생합니다.
 
 ```java
 fun main(args: Array<String>) {
