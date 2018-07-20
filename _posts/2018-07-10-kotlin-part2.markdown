@@ -30,7 +30,7 @@ fun main(args: Array<String>) {
 ```
 숫자 타입을 println에 넣어도 정상적으로 출력이 됩니다. Int를 명시하지 않아도 Integer임을 알고 있어서 intValue와 intValue2는 모두 같은 동작을 합니다.
 
-다음처럼 이미 정의된 상수에 다른 값을 넣는 것은 오류가 발생합니다.
+다음처럼 이미 정의된 상수에 다른 값을 넣는 것은 오류가 발생합니다. 변경하고 싶은 경우 var로 변수로 정의해야합니다.
 
 ```java
 fun main(args: Array<String>) {
@@ -119,7 +119,7 @@ fun main(args: Array<String>) {
 --> A
 --> B
 ```
-숫자 타입과 마찬가지로 reassign은 되지 않습니다.
+val로 정의를 했기 때문에 상수입니다. 상수는 숫자 타입과 마찬가지로 reassign은 되지 않습니다.
 ```java
 fun main(args: Array<String>) {
     val charValue1: Char = 'A'
@@ -148,12 +148,17 @@ fun main(args: Array<String>) {
 설명할게 없네요.
 
 ### Strings
-문자는 char의 배열이고, immutable입니다. 즉 하나의 문자는 생성만 될뿐 수정이 되지 않습니다. java에서도 "A" + "B"는 새로운 문자를 생성할뿐 기존 문자가 수정이 되는것은 아닙니다.
+문자는 char의 배열입니다. 기본적으로 java와 마찬가지로 많은 함수를 제공합니다.
 
 ```java
 fun main(args: Array<String>) {
-    val stringValue: String = "ABC"
+    var stringValue: String = "ABC"
 
+    println(stringValue)
+    println(stringValue[0])
+    println(stringValue.length)
+
+    stringValue = "DE"
     println(stringValue)
     println(stringValue[0])
     println(stringValue.length)
@@ -161,8 +166,11 @@ fun main(args: Array<String>) {
 --> ABC
 --> A
 --> 3
+--> DE
+--> D
+--> 2
 ```
-숫자 타입과 마찬가지로 stringValue에 다른 문자를 넣으면 reassign 에러가 발생합니다.
+변수로 정의를 했기 때문에 수정이 가능합니다.
 조금전에 설명한대로 String은 char의 배열이기 때문에 배열처럼 순서대로 꺼낼수 있습니다. 첫번째 char를 꺼내면 A가 됩니다.
 문자의 길이를 리턴하는 length를 호출하면 3이 나옵니다.
 
@@ -176,7 +184,7 @@ fun main(args: Array<String>) {
     println(stringValue)
 }
 ```
-결과는 ABC가 나오게 됩니다. DEF가 더해진 문자는 새로운 변수에 정의를 해야만 원하는 대로 동작을 합니다.
+결과는 ABC가 나오게 됩니다. DEF가 더해진 문자는 새로운 상수입니다. 기존 상수가 바뀌지는 않습니다.
 
 ```java
 fun main(args: Array<String>) {
