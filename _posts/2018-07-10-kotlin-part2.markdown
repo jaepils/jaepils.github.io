@@ -184,7 +184,7 @@ fun main(args: Array<String>) {
     println(stringValue)
 }
 ```
-결과는 ABC가 나오게 됩니다. DEF가 더해진 문자는 새로운 상수입니다. 기존 상수가 바뀌지는 않습니다.
+결과는 ABC가 나오게 됩니다. DEF가 더해진 문자는 새로운 변수입니다. 타입이 val 에서 var로 변경이 되었습니다.
 
 ```java
 fun main(args: Array<String>) {
