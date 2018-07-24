@@ -21,7 +21,7 @@ public interface DrawService {
    public void draw();
 }
 ```
-예제로 설명할 서비스는 간단히 draw를 구현해야한다고 하겠습니다.
+예제로 설명할 서비스는 draw를 구현하면 됩니다.
 
 #### Concrete Classes
 DrawService를 구현한 클래스는 2개를 정의합니다. 사각형과 원을 담당하는 클래스 두개를 정의합니다.
