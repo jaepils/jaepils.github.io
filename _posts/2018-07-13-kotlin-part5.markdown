@@ -65,7 +65,7 @@ kotlin의 경우에서는 class 정의시 inner를 붙여서 생성을 해야합
 ```java
 fun main(args: Array<String>) {
 
-    val inner =  OuterClass().Inner()
+    val inner =  OuterClass().InnerClass()
 }
 
 class OuterClass {
@@ -154,7 +154,7 @@ public final class Person
 }
 ```
 디컴파일 결과를 보면 name은 immutable하게 생성이 되었고, age는 mutable 하게 생성이 되어 getter와 setter가 둘다 생성이 되어있습니다.
-타입을 문자로 하는 경우에만 final이 붙고, setter가 생성이 되지 않습니다.
+타입을 val로 하는 경우에만 final이 붙고, setter가 생성이 되지 않습니다.
 
 ```java
 class Person(var ssn:Int, val name: String, var age: Int) {
@@ -165,7 +165,7 @@ class Person(var ssn:Int, val name: String, var age: Int) {
     }
 }
 ```
-클래스 내부에 임의의 함수를 만들어도 String으로 정의된 name은 다른 변수 할당이 되지 않습니다.
+클래스 내부에 임의의 함수를 만들어도 상수이기 때문에 name은 다른 변수 할당이 되지 않습니다.
 
 mutable한 String 속성을 위해서는 멤버 변수를 다시 정의를 하는 방법이 있습니다.
 
@@ -188,6 +188,7 @@ class Person(val _name: String = "", var _age: Int) {
 }
 ```
 이렇게 하게 되면, 멤버변수가 2개가 아닌 4개가 나오게 되어 좋은 방법은 아닌거 같습니다.
+클래스가 immutable이어야하는 경우에만 val을 사용을 하면 됩니다.
 
 #### Secondary Constructor
 위의 경우를 해결하기 위해서는 다음과 같은 방식으로 Secondary Constructor를 생성을 해야 합니다.
