@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Creating an tool window"
+title:  "Creating an tool window #1"
 date:   2018-08-01 15:40:56
 categories: intelliJ
 ---
@@ -72,6 +72,13 @@ plugin.xml은 intelliJ가 로딩이 되면서 읽어 들이는 파일입니다.
       <action id="Myplugin.CustomToolWindow" class="sample.action.CustomToolWindowAction" text="Open Custom tool" />
     </group>
 </actions>
+
+<project-components>
+  <component>
+      <interface-class>sample.ui.view.CustomView</interface-class>
+      <implementation-class>sample.ui.view.CustomView</implementation-class>
+  </component>
+</project-components>
 ```
 id는 CustomToolWindow에 위치는 하단, 생성은 CustomToolWindowFactory를 통해서 하도록 했습니다.
 
