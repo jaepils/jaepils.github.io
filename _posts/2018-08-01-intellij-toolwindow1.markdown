@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Creating an tool window #1"
+title:  "Creating a tool window #1"
 date:   2018-08-01 15:40:56
 categories: intelliJ
 ---
