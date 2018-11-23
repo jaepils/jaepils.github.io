@@ -2,7 +2,7 @@
 layout: post
 title:  "Spring Scheduler"
 date:   2018-11-20 15:40:56
-categories: java, spring
+categories: java spring
 ---
 ## Scheduler
 주기적으로 반복된 일을 수행할때 스케쥴러를 많이 사용을 합니다. 간단하고, 정확하기 때문인데요. 사용하면서 매번 궁금했던 내용이 있었습니다.
