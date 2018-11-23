@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "String Scheduler"
+title:  "Spring Scheduler"
 date:   2018-11-20 15:40:56
 categories: java, spring
 ---
@@ -30,7 +30,7 @@ public class SchedulerConfig implements SchedulingConfigurer {
     }
 }
 ```
-threadPool을 만들고 사이즈를 10으로 설정을 하였습니다. 만약 해당 작업이 제 생각대로 동작을 한다면 10개 이내에서 병렬로 처리가 되고, 10개가 넘는다면 대기를 할것으로 생각됩니다.
+threadPool을 만들고 사이즈를 10으로 설정을 하였습니다. 만약 해당 작업이 제 생각대로 동작을 한다면 10개 이내에서 병렬로 처리가 되고, 10개가 넘는다면 thread가 얻을 될때까지 대기를 할것으로 생각됩니다.
 
 ### Task
 ```java
@@ -75,7 +75,7 @@ Spring document에서는 다음과 같이 적혀있습니다.
 이것은 정확하고 의도 된 행동입니다. fixedRate 또는 fixedDelay 상관없이 절대 병렬로 실행이 되지 않습니다.
 설정된 fixedRate보다 더 오래 걸리더라도 마찬가지입니다.
 
-**즉 task가 오래걸리게 되면 fixedRate가 원하는 주기로 실행이 되지 않는게 결론입니다.**
+**task가 오래걸리게 되면 fixedRate가 원하는 주기로 실행이 되지 않는게 결론입니다.**
 
 ## 참조
 * https://www.baeldung.com/spring-scheduled-tasks
